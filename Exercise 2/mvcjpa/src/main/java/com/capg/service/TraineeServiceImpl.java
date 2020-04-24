@@ -1,6 +1,8 @@
 package com.capg.service;
 
-import java.util.List;
+
+
+import javax.transaction.Transactional;
 
 import com.capg.dao.ITraineeDao;
 import com.capg.entities.Trainee;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class TraineeServiceImpl implements ITraineeService{
     private ITraineeDao traineeDao;
 
@@ -44,11 +47,6 @@ public class TraineeServiceImpl implements ITraineeService{
 		return t;
 	}
 
-	@Override
-	public boolean credentials(int id, String password) {
-		boolean credential = traineeDao.credentials(id, password);
-		return credential;
-	}
-
+	
     
 }

@@ -20,13 +20,13 @@
 <label>Trainee Location</label>
 <div>
 <label>Chennai</label>
-<input type="radio" id="indore" name="traineelocation"  value="indore">
+<input type="radio" id="bhopal" name="traineelocation"  value="Bhopal">
 <label>Banglore</label>
-<input type="radio" id="bhopal" name="traineelocation"  value="bhopal">
+<input type="radio" id="indore" name="traineelocation"  value="Indore">
 <label>Mumbai</label>
-<input type="radio" id="newyork" name="traineelocation"  value="newyork">
+<input type="radio" id="pune" name="traineelocation"  value="Pune">
 <label>Pune</label>
-<input type="radio" id="paris" name="traineelocation"  value="paris">
+<input type="radio" id="mumbai" name="traineelocation"  value="Mumbai">
 </div>
 
 

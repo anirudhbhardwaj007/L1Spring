@@ -1,5 +1,6 @@
 package com.capg.controller;
 
+import com.capg.entities.Admin;
 import com.capg.entities.Trainee;
 import com.capg.service.ITraineeService;
 import com.capg.session.SessionDetails;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.*;
 
 @Controller
 public class TraineeController {
@@ -25,13 +25,21 @@ public class TraineeController {
     @Autowired
     private SessionDetails sessionDetails;   
     
-   
-    
-
-
+    @Autowired
+    private Admin admin;  //admin credentials the entity class for admin is made for that
+    public boolean credentialsCorrect(int id, String password) {
+        boolean flag=false;
+    	if (password == null || password.isEmpty()) {
+            return false;
+        }
+    	if(id==admin.getId()&&password.equals(admin.getPassword())) {
+    	    flag= true;
+        }
+    return flag;
+    }
     @GetMapping("/processlogin")
     public ModelAndView login(@RequestParam("id")int id , @RequestParam("password") String password){
-        boolean correct=traineeService.credentials(id,password);
+        boolean correct=credentialsCorrect(id,password);
         if(!correct){
          return new ModelAndView("/login");
         }
@@ -40,8 +48,6 @@ public class TraineeController {
         return modelAndView;
     }
     
-
-
     @GetMapping("/fetchall")
     public ModelAndView fetchPage() {
     	 int id=sessionDetails.getId();
@@ -50,8 +56,6 @@ public class TraineeController {
          }
         return new ModelAndView("findtrainee");
     }
-
-
     @GetMapping("/processfindtrainee")
     public ModelAndView traineeDetails(@RequestParam("traineeid")int traineeId) {
         Trainee trainee= traineeService.fetchTrainee(traineeId);
@@ -67,10 +71,6 @@ public class TraineeController {
         }
         return new ModelAndView("traineeregister");
     }
-
-
-
-
     @GetMapping("/processregister")
     public ModelAndView registerTrainee(@RequestParam("traineeid") int traineeId,
                                          @RequestParam("traineename") String traineeName, @RequestParam("traineelocation")String location)
@@ -89,10 +89,7 @@ public class TraineeController {
         }
         return new ModelAndView("updatetrainee");
     }
-
-
-
-    @GetMapping("/processupdate") //modifying trainee.
+    @GetMapping("/processupdate")
     public ModelAndView updateTrainee(@RequestParam("traineeid") int traineeId,
                                          @RequestParam("traineename") String traineeName, @RequestParam("traineelocation")String location)
     {
@@ -104,7 +101,6 @@ public class TraineeController {
     	return new ModelAndView("traineedetails",  "trainee", trainee);
     }
 
-
     @GetMapping("/delete")
     public ModelAndView deletePage() {
     	 int id=sessionDetails.getId();
@@ -113,10 +109,7 @@ public class TraineeController {
          }
         return new ModelAndView("deletetrainee");
     }
-
-
-
-    @GetMapping("/processdelete") //removing trainee.
+    @GetMapping("/processdelete")
     public ModelAndView deleteTrainee(@RequestParam("traineeid")int traineeId) {
     	getTraineeService().deleteTrainee(traineeId);
     	return new ModelAndView("traineeHome");

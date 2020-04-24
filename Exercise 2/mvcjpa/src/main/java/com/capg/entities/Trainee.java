@@ -1,25 +1,18 @@
 package com.capg.entities;
 
-import org.springframework.beans.factory.annotation.Value;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.validation.constraints.Min;
-
+@Entity
+@Table(name = "trainees")
 public class Trainee {
 
-
+	@Id
     private int id;
     private String name;
     private String location;
-    private String password;
-
-    public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+   
 	public int getId() {
         return id;
     }
